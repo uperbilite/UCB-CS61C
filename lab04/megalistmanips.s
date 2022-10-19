@@ -51,11 +51,11 @@ map:
     sw s1, 4(sp)
     sw s0, 8(sp)
 
-    beq a0, x0, done    # if we were given a null pointer, we're done.
+    beq a0, zero, done  # if we were given a null pointer, we're done.
 
-    add s0, a0, x0      # save address of this node in s0
-    add s1, a1, x0      # save address of function in s1
-    add t0, x0, x0      # t0 is a counter
+    mv s0, a0           # save address of this node in s0
+    mv s1, a1           # save address of function in s1
+    mv t0, zero         # t0 is a counter
 
     # remember that each node is 12 bytes long:
     # - 4 for the array pointer
@@ -63,23 +63,40 @@ map:
     # - 4 more for the pointer to the next node
 
     # also keep in mind that we should not make ANY assumption on which registers
-    # are modified by the callees, even when we know the content inside the functions 
+    # are modified by the callees, even when we know the content inside the functions
     # we call. this is to enforce the abstraction barrier of calling convention.
 mapLoop:
-    add t1, s0, x0      # load the address of the array of current node into t1
+    lw t1, 0(s0)        # load the address of the array of current node into t1
     lw t2, 4(s0)        # load the size of the node's array into t2
 
-    add t1, t1, t0      # offset the array address by the count
+    slli t3, t0, 2      # offset the array address by the count
+    add t1, t1, t3
     lw a0, 0(t1)        # load the value at that address into a0
+
+    addi sp, sp, -20
+    sw a0, 16(sp)
+    sw a1, 12(sp)
+    sw t0, 8(sp)
+    sw t1, 4(sp)
+    sw t2, 0(sp)
 
     jalr s1             # call the function on that value.
 
-    sw a0, 0(t1)        # store the returned value back into the array
-    addi t0, t0, 1      # increment the count
-    bne t0, t2, mapLoop # repeat if we haven't reached the array size yet
+    lw t1, 4(sp)
 
-    la a0, 8(s0)        # load the address of the next node into a0
-    lw a1, 0(s1)        # put the address of the function back into a1 to prepare for the recursion
+    sw a0, 0(t1)        # store the returned value back into the array
+
+    lw t2, 0(sp)
+    lw t0, 8(sp)
+    lw a1, 12(sp)
+    lw a0, 16(sp)
+    addi sp, sp, 20
+
+    addi t0, t0, 1      # increment the count
+    blt t0, t2, mapLoop # repeat if we haven't reached the array size yet
+
+    lw a0, 8(s0)        # load the address of the next node into a0
+    mv a1, s1           # put the address of the function back into a1 to prepare for the recursion
 
     jal  map            # recurse
 done:
