@@ -129,7 +129,8 @@ end TCL_Generic;
       <a name="SocBusSelection" val=""/>
     </tool>
   </lib>
-  <main name="generate_immediate"/>
+  <lib desc="file#../ex1.circ" name="12"/>
+  <main name="main"/>
   <options>
     <a name="gateUndefined" val="ignore"/>
     <a name="simlimit" val="1000"/>
@@ -174,22 +175,58 @@ end TCL_Generic;
       <a name="appearance" val="logisim_evolution"/>
     </tool>
   </toolbar>
-  <circuit name="generate_immediate">
+  <circuit name="main">
     <a name="appearance" val="logisim_evolution"/>
-    <a name="circuit" val="generate_immediate"/>
+    <a name="circuit" val="main"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="circuitvhdlpath" val=""/>
     <a name="clabel" val=""/>
     <a name="clabelfont" val="SansSerif bold 16"/>
     <a name="clabelup" val="east"/>
-    <comp lib="0" loc="(230,200)" name="Pin">
+    <comp lib="0" loc="(110,140)" name="Clock"/>
+    <comp lib="0" loc="(190,100)" name="Pin">
       <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="CYCLE"/>
+      <a name="locked" val="true"/>
+      <a name="output" val="true"/>
+      <a name="width" val="2"/>
+    </comp>
+    <comp lib="0" loc="(190,50)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="halt"/>
+      <a name="locked" val="true"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(480,200)" name="Tunnel">
+      <a name="facing" val="south"/>
       <a name="label" val="INSTRUCTION"/>
       <a name="locked" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(500,220)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="INSTRUCTION"/>
+      <a name="locked" val="true"/>
+      <a name="output" val="true"/>
       <a name="radix" val="16"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="0" loc="(620,200)" name="Pin">
+    <comp lib="0" loc="(570,380)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="INSTRUCTION"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(60,110)" name="Constant">
+      <a name="width" val="2"/>
+    </comp>
+    <comp lib="0" loc="(60,40)" name="Constant">
+      <a name="value" val="0x3"/>
+      <a name="width" val="2"/>
+    </comp>
+    <comp lib="0" loc="(970,380)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
       <a name="label" val="IMMEDIATE"/>
@@ -198,5 +235,40 @@ end TCL_Generic;
       <a name="radix" val="16"/>
       <a name="width" val="32"/>
     </comp>
+    <comp lib="12" loc="(880,380)" name="generate_immediate"/>
+    <comp lib="3" loc="(100,100)" name="Adder">
+      <a name="width" val="2"/>
+    </comp>
+    <comp lib="3" loc="(100,50)" name="Comparator">
+      <a name="width" val="2"/>
+    </comp>
+    <comp lib="4" loc="(110,70)" name="Register">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="width" val="2"/>
+    </comp>
+    <comp lib="4" loc="(190,160)" name="ROM">
+      <a name="addrWidth" val="2"/>
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="contents">addr/data: 2 32
+542023 4542223 fe542823 fa542623
+</a>
+      <a name="dataWidth" val="32"/>
+    </comp>
+    <wire from="(100,100)" to="(110,100)"/>
+    <wire from="(100,50)" to="(190,50)"/>
+    <wire from="(170,100)" to="(180,100)"/>
+    <wire from="(180,100)" to="(180,170)"/>
+    <wire from="(180,100)" to="(190,100)"/>
+    <wire from="(180,170)" to="(190,170)"/>
+    <wire from="(30,170)" to="(180,170)"/>
+    <wire from="(30,60)" to="(30,90)"/>
+    <wire from="(30,60)" to="(60,60)"/>
+    <wire from="(30,90)" to="(30,170)"/>
+    <wire from="(30,90)" to="(60,90)"/>
+    <wire from="(430,220)" to="(480,220)"/>
+    <wire from="(480,200)" to="(480,220)"/>
+    <wire from="(480,220)" to="(500,220)"/>
+    <wire from="(570,380)" to="(660,380)"/>
+    <wire from="(880,380)" to="(970,380)"/>
   </circuit>
 </project>

@@ -129,7 +129,7 @@ end TCL_Generic;
       <a name="SocBusSelection" val=""/>
     </tool>
   </lib>
-  <main name="generate_immediate"/>
+  <main name="compute_BrUn"/>
   <options>
     <a name="gateUndefined" val="ignore"/>
     <a name="simlimit" val="1000"/>
@@ -174,9 +174,9 @@ end TCL_Generic;
       <a name="appearance" val="logisim_evolution"/>
     </tool>
   </toolbar>
-  <circuit name="generate_immediate">
+  <circuit name="compute_BrUn">
     <a name="appearance" val="logisim_evolution"/>
-    <a name="circuit" val="generate_immediate"/>
+    <a name="circuit" val="compute_BrUn"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="circuitvhdlpath" val=""/>
     <a name="clabel" val=""/>
@@ -192,11 +192,9 @@ end TCL_Generic;
     <comp lib="0" loc="(620,200)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
-      <a name="label" val="IMMEDIATE"/>
+      <a name="label" val="BrUn"/>
       <a name="locked" val="true"/>
       <a name="output" val="true"/>
-      <a name="radix" val="16"/>
-      <a name="width" val="32"/>
     </comp>
   </circuit>
 </project>
